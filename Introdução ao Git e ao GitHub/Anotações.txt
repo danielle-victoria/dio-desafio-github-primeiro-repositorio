@@ -1,0 +1,185 @@
+       --------------------------------------------------------------------
+       |   Link para download do Git https://git-scm.com/downloads        |
+       |   O Git Bash é um terminal extendido para otimizar o uso do Git. |
+       --------------------------------------------------------------------
+
+
+/////////////////////	Curso - Introdução ao Git e ao GitHub   /////////////////////
+
+
+		+ Navegação via command line interface e instalação
+
+	
+		* Comandos básicos para um bom desempenho no terminal
+
+			* O que vamos aprender?
+
+		   	- Mudar de pastas
+		   	- Listar as pastas
+		  	- Criar pastas/arquivos
+		   	- Deletar pastas/arquivos
+
+
+			
+				Windows                Unix
+ 
+1) Entrar na pasta               cd                     cd
+2) Listar                        dir                    ls
+3) Criar pasta                   mkdir                  mkdir
+4) Apagar arquivo/pasta          del/rmdir              rm -rf
+5) Limpar o terminal             cls                    clear / Ctrl + L
+
+
+Outros comandos...
+
+cd .. -> voltar
+echo hello -> Printa na tela "hello" (hello -> saída)
+echo hello > hello.txt -> Armazena "hello" no arquivo "hello.txt"
+del -> deletar todos os itens de uma pasta
+rmdir nomedapasta /S /Q  -> Excluir pasta
+
+---------------------------------------------------------------------------------------------------------------------
+
+
+
+		+Entendendo como o Git funciona por baixo dos panos
+
+
+		   		*Objetos internos
+
+			 - commit	 - tree		- blob   
+               
+                                                                       5b1d3
+    							       ------------------------                                                        
+	98ca9                	   92ec2                       | blob        Size     |
+--------------------         ------------------------          | == Testing library   |
+| commit     Size  |         | tree     Size	     | ---->   | This library is used |
+| tree       92ec2 |	     | blob     5b1d3 README |         | to test Ruby projects|
+| author     Scott | ---->   | blob     911e7 LICENSE|	       ------------------------
+| committer  Scott |         ------------------------- ---->             911e7
+| The initial com- |	     				       ----------------------------
+|mit of my project |         				       | blob         Size        |
+--------------------         				       | The MIT License Copyright|
+							       |(c) 2000 Scott Chacon Per-|
+						               |mission is heredy granted,|
+							       |free of change, to any    |
+							       |person                    |
+							       ----------------------------
+
+
+
+
+
+       			 * Chave SSH e Token
+
+		* Chave SSH
+               -> GitHub -> Settings -> SSH and GPG Keys -> SSH Keys -> New SSH Key
+	       -> New SSH Key -> SSH Keys/ Add new -> Title(título para chave SSH) -> Key(copiar do terminal* do Git Bash) -> Add SSH Key
+
+		* Etapa do terminal Git Bash
+		-ssh-keygen -t ed25519 -C seu e-mail
+		-inserir senha do sistema
+		-cd /c/Users/nomeusuario/.ssh/   --> Acessa pasta que contêm as chaves pública e privada (usar a pública no GitHub)
+                -cat id_ed25519.pub --> Vai mostrar a chave SSH --> Copiar ela e colar no GitHub
+		
+		**SSH Agent ---> Responsável por pegar as chaves e lidar com elas
+		-eval $(ssh-agent -s)  --> Gera um Agent Ex.: Agent pid 1382
+		-ssh-add id_25519 -> Entrega a chave privada ao Agent
+
+		***Para clonar um código usando SSH
+		-copiar URL SSH
+		-terminal: git clone colar URL
+
+
+		* Token de acesso pessoal
+
+		-GitHub -> Settings -> Developer Settings -> Personal acess tokens -> New personal acess token ->
+                -> Note: Nome para o token, Expiration: 60 days, select scopes: marcar "repo" -> Generate token ->
+                -> copiar o token e armazenar em uma máquina segura.  (É necessário copiar, pois o tToken desaparece)
+
+		** Para clonar um código usando Token
+                ->Copiar URL HTTPS -> Terminal: git clone colar URL -> senha: inserir o token
+
+
+--------------------------------------------------------------------------------------------------------------------------
+
+	       
+				+ Primeiros comando com Git
+				
+			   * Iniciando o GIT e criando um commit
+				- Iniciar o GIT 
+				- Iniciar o versionamento
+				- Criar um commit
+
+
+				- git init   -> inicializa um repositório
+				- git add    -> adiciona uma alteração no diretório ativo à área de staging
+				- git commit -> é usado para criar um instantâneo das alterações preparadas em um cronograma de um histórico de projetos do Git
+
+
+			   * Criando um repositório 
+			     - terminal -
+			     - mkdir nomedapasta
+                             - git init
+			     - ls -a -> mostra pasta oculta do git -> versionamento dos objetos
+			     - git config --global user.email "inserir e-mail" (usando o git pela pela primeira vez)
+                             - git config --global user.name seu apelido (usando o git pela primeira vez)
+
+
+			   * Adicionando um arquivo
+			     - Usando arquivos Markdown -> "Semelhante ao HTML"
+			     - # Título nível 1
+                             - ## Título nível 2
+			     - criar arquivo texto dentro da pasta local
+			     - nome.md
+			     - abrir e escrever algo em Markdown
+			     - git add * -> adiciona todos os arquivos da pasta 
+			     - git commit -m "escrever algo sobre o arquivo adicionado"
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+
+				+ Ciclo de vida dos arquivos no GIT
+
+				  * Passo a passo no ciclo de vida
+
+				  - terminal:
+				  - git status -> responsável por monitorar o status dos arquivos
+				  - Status: untracked, modified, staged
+				  - Se modificar o arquivo, fazer git add nome + pasta/
+				  - git commit - m "texto sobre o arquivo"
+				  - echo > README.md  -> criar arquivo  --> Será a capa do repositório
+				  - git add * -> adiciona todos os arquivos da pasta
+				  - git commit -m "string qualquer"
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+
+				+ Introdução ao GitHub
+
+				* Trabalhando com o GitHub  --> Apontar o repositório para o remoto
+				-terminal: git config --list -> lista todas as configurações do git
+
+				- GitHub -> your repositories -> Create a new repository -> 
+				-> Repository name: nome para o repositório, description: 
+				descrição sobre o repositório, marcar public ou private ->
+				-> Create repository
+				-> Observar o trecho "or push an existing repository...line"
+	`			-> Copiar os comandos
+				- git remote -v -> Lista os repositórios remotos cadastrados
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------- 
+
+				          + Resolvendo Conflitos 
+				
+		           * Como os conflitos acontecem no GitHub e como resolvê-los
+
+				- terminal:
+				- git pull origin master
+				- git add *
+				- git commit -m "texto"
+				- git push origin master
+
